@@ -52,7 +52,7 @@ app.get('/numbers/:id', async (req, res) => {
         const response = await axios.get(url,{
             timeout: 500,
             headers: {
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzQ4MzI3MjEwLCJpYXQiOjE3NDgzMjY5MTAsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6Ijc4YTNiODMwLWUwODAtNDhhYy05MWU2LTA2ZGQyNjJhYTkzYyIsInN1YiI6IjIyMzExYTYyMzRAY3Muc3JlZW5pZGhpLmVkdS5pbiJ9LCJlbWFpbCI6IjIyMzExYTYyMzRAY3Muc3JlZW5pZGhpLmVkdS5pbiIsIm5hbWUiOiJtb2hhbW1hZCBhYmR1bCBmYXJoYXRoIiwicm9sbE5vIjoiMjIzMTFhNjIzNCIsImFjY2Vzc0NvZGUiOiJQQ3FBVUsiLCJjbGllbnRJRCI6Ijc4YTNiODMwLWUwODAtNDhhYy05MWU2LTA2ZGQyNjJhYTkzYyIsImNsaWVudFNlY3JldCI6IlNxWkZVWFRkTnVISldjSEgifQ.AZ_7bPvnrsE991JPPIE5DljiJjCXxG7YkV36i0WcXLQ`,
+                'Authorization': `Bearer ${process.env.BEARER_TOKEN}`,
                 'Content-Type': 'application/json'
             }
         });
@@ -88,7 +88,7 @@ app.get('/numbers/:id', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT ||8080;
+const PORT = process.env.PORT;
 app.listen(PORT, () =>{
     console.log(`Server running on port ${PORT}`);
 });
