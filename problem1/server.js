@@ -52,18 +52,19 @@ app.get('/numbers/:id', async (req, res) => {
         const response = await axios.get(url,{
             timeout: 500,
             headers: {
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzQ4MzI2MjQwLCJpYXQiOjE3NDgzMjU5NDAsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6Ijc4YTNiODMwLWUwODAtNDhhYy05MWU2LTA2ZGQyNjJhYTkzYyIsInN1YiI6IjIyMzExYTYyMzRAY3Muc3JlZW5pZGhpLmVkdS5pbiJ9LCJlbWFpbCI6IjIyMzExYTYyMzRAY3Muc3JlZW5pZGhpLmVkdS5pbiIsIm5hbWUiOiJtb2hhbW1hZCBhYmR1bCBmYXJoYXRoIiwicm9sbE5vIjoiMjIzMTFhNjIzNCIsImFjY2Vzc0NvZGUiOiJQQ3FBVUsiLCJjbGllbnRJRCI6Ijc4YTNiODMwLWUwODAtNDhhYy05MWU2LTA2ZGQyNjJhYTkzYyIsImNsaWVudFNlY3JldCI6IlNxWkZVWFRkTnVISldjSEgifQ.eoYf7MWH_p7ufP2g66bgrkFq5fCNaH85C05eZmFVIhw`,
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzQ4MzI3MjEwLCJpYXQiOjE3NDgzMjY5MTAsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6Ijc4YTNiODMwLWUwODAtNDhhYy05MWU2LTA2ZGQyNjJhYTkzYyIsInN1YiI6IjIyMzExYTYyMzRAY3Muc3JlZW5pZGhpLmVkdS5pbiJ9LCJlbWFpbCI6IjIyMzExYTYyMzRAY3Muc3JlZW5pZGhpLmVkdS5pbiIsIm5hbWUiOiJtb2hhbW1hZCBhYmR1bCBmYXJoYXRoIiwicm9sbE5vIjoiMjIzMTFhNjIzNCIsImFjY2Vzc0NvZGUiOiJQQ3FBVUsiLCJjbGllbnRJRCI6Ijc4YTNiODMwLWUwODAtNDhhYy05MWU2LTA2ZGQyNjJhYTkzYyIsImNsaWVudFNlY3JldCI6IlNxWkZVWFRkTnVISldjSEgifQ.AZ_7bPvnrsE991JPPIE5DljiJjCXxG7YkV36i0WcXLQ`,
                 'Content-Type': 'application/json'
             }
         });
         const numbers = response.data.numbers || [];
-        
+        // console.log(numbers);
 
         for (let num of numbers) {
             if (!currWindow.includes(num)) {
                 currWindow.push(num);
             }
         }
+        // console.log(currWindow);
 
         if (currWindow.length>WINDOW_SIZE) {
             currWindow = currWindow.slice(-WINDOW_SIZE);
@@ -77,7 +78,7 @@ app.get('/numbers/:id', async (req, res) => {
         });
         
     } catch (error) {
-        console.error(`Error fetching numbers for ID ${id}:`,error.message);
+        console.error(`error fetching numbers for ${id}:`,error.message);
         res.json({
             windowPrevState: prevWindow,
             windowCurrState: currWindow,
@@ -87,7 +88,7 @@ app.get('/numbers/:id', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+const PORT = process.env.PORT ||8080;
+app.listen(PORT, () =>{
     console.log(`Server running on port ${PORT}`);
 });
